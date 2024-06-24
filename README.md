@@ -15,8 +15,22 @@ Create a virtual environment and install requirements (packages) using the follo
 ```
 pip install -r requirements.txt
 ```
-Requirements (packages):
-- Questionary is a Python library for effortlessly building pretty command line interfaces
+or install them separately using the following commands
+- to install Questionary use
+```
+pip install questionary
+```
+Note: Questionary is a Python library for effortlessly building pretty command line interfaces 
+- to install Tabulate use
+```
+pip install tabulate
+```
+Note: Tabulate is used to print tabular data in nicely formatted tables.
+- to install Pytest use
+```
+pip install pytest
+```
+Note: Pytest is a testing framework 
 ## Usage
 - To start, run the folowing command
 ```
