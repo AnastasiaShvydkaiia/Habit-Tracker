@@ -30,15 +30,14 @@ def db():
                 ("walk the dog", "05/19/2024 09:00", 13),
                 ("walk the dog", "05/20/2024 09:00", 14),
                 ("walk the dog", "05/21/2024 09:00", 15),
-                ("walk the dog", "05/23/2024 09:00", 1),
-                ("walk the dog", "05/24/2024 09:00", 2),
-                ("walk the dog", "05/25/2024 09:00", 3),
-                ("walk the dog", "05/26/2024 09:00", 4),
-                ("walk the dog", "05/27/2024 09:00", 5),
-                ("walk the dog", "05/28/2024 09:00", 6),
-                ("walk the dog", "05/29/2024 09:00", 7),
-                ("walk the dog", "05/30/2024 09:00", 8),
-                ("walk the dog", "05/31/2024 09:00", 9),
+                ("walk the dog", "05/24/2024 09:00", 1),
+                ("walk the dog", "05/25/2024 09:00", 2),
+                ("walk the dog", "05/26/2024 09:00", 3),
+                ("walk the dog", "05/27/2024 09:00", 4),
+                ("walk the dog", "05/28/2024 09:00", 5),
+                ("walk the dog", "05/29/2024 09:00", 6),
+                ("walk the dog", "05/30/2024 09:00", 7),
+                ("walk the dog", "05/31/2024 09:00", 8),
 
                 ("medicines", "05/02/2024 08:00", 1),
                 ("medicines", "05/03/2024 08:00", 2),
@@ -46,7 +45,6 @@ def db():
                 ("medicines", "05/11/2024 08:00", 1),
                 ("medicines", "05/12/2024 08:00", 2),
                 ("medicines", "05/13/2024 08:00", 3),
-                ("medicines", "05/14/2024 08:00", 4),
                 ("medicines", "05/25/2024 08:00", 1),
                 ("medicines", "05/26/2024 08:00", 2),
                 ("medicines", "05/27/2024 08:00", 3),
@@ -54,16 +52,15 @@ def db():
                 ("medicines", "05/30/2024 08:00", 1),
                 ("medicines", "05/31/2024 08:00", 2),
 
-                ("reading", "05/11/2024 08:00", 1),
+                ("reading", "05/01/2024 08:00", 1),
+                ("reading", "05/02/2024 08:00", 2),
+                ("reading", "05/03/2024 08:00", 3),
                 ("reading", "05/15/2024 08:00", 1),
-                ("reading", "05/16/2024 08:00", 2),
-                ("reading", "05/17/2024 08:00", 3),
-                ("reading", "05/25/2024 08:00", 1),
-                ("reading", "05/26/2024 08:00", 2),
-                ("reading", "05/27/2024 08:00", 3),
-                ("reading", "05/29/2024 08:00", 1),
-                ("reading", "05/30/2024 08:00", 2),
-                ("reading", "05/31/2024 08:00", 3),
+                ("reading", "05/24/2024 08:00", 1),
+                ("reading", "05/25/2024 08:00", 2),
+                ("reading", "05/28/2024 08:00", 1),
+                ("reading", "05/29/2024 08:00", 2),
+                ("reading", "05/30/2024 08:00", 3),
 
                 ("cleaning", "05/03/2024 10:00", 1),
                 ("cleaning", "05/10/2024 10:00", 2),
@@ -144,5 +141,24 @@ def test_longest_streak(db):
     WHEN the longest streak calculation requested
     THEN check the longest streak is calculated correctly
     """
-    max_streak =analytics.max_streak("walk the dog", "test.db")
+    max_streak=analytics.max_streak("walk the dog", "test.db")
     assert max_streak[0][1]==15
+
+def test_current_streak(db):
+    """
+    GIVEN a habit instance and a test database for testing
+    WHEN the current streak calculation requested
+    THEN check the current streak is calculated correctly
+    """
+    cur_streak=analytics.current_streak("reading", "test.db")
+    assert cur_streak[0][2]==3
+
+def test_longest_streak_per_periodicity(db):
+    """
+    GIVEN a habit instances and a test database for testing
+    WHEN the longest streak calculation requested
+    THEN check the longest streak is calculated correctly
+    """
+    daily_habits=['reading','walk the dog','medicines']
+    max_streak=max([i[1] for i in analytics.max_streak(db_name= "test.db") if i[0] in daily_habits])
+    assert max_streak==15
